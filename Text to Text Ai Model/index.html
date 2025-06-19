@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Textro Bot Chat (Text to Text Model)</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #2a0066, #000033);
+      color: white;
+    }
+
+    .navbar {
+      background: #1e1e3f;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px #00000040;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      height: calc(100vh - 80px);
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    /* LEFT SIDE */
+    .left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .left img {
+      width: 18cm;
+      height: auto;
+      animation: float 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px #00ffffaa);
+    }
+
+    .bot-intro {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #ffd;
+      line-height: 1.6;
+      animation: float 3s ease-in-out infinite;
+      text-shadow: 0 0 6px #ffdd99;
+      font-weight: bold;
+    }
+
+    /* RIGHT SIDE */
+    .container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 80px); /* Keep full height minus navbar */
+  padding: 30px;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent overflow from content */
+}
+
+.right {
+  flex: 2;
+  background: #1a1a3a;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #00000066;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden; /* Prevent it from stretching down */
+}
+
+#response {
+  margin-top: 20px;
+  padding: 20px;
+  background: #33335a;
+  border-radius: 8px;
+  color: #ccf;
+  box-shadow: 0 0 10px #00000066 inset;
+  font-size: 17px;
+  line-height: 1.6;
+
+  flex: 1;                /* Fill remaining space */
+  min-height: 100px;
+  max-height: 100%;
+  overflow-y: auto;       /* Make it scrollable */
+}
+
+
+    .right h2 {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    input, button {
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    input {
+      background: #2a2a5a;
+      color: white;
+    }
+
+    button {
+      background: #00aaff;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0088cc;
+    }
+
+  
+
+    /* Optional scrollbar styling */
+    #response::-webkit-scrollbar {
+      width: 8px;
+    }
+    #response::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <h1>Textro Chatbot ( Text to Text Model )</h1>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <!-- LEFT PANEL (BOT IMAGE + MESSAGE) -->
+    <div class="left">
+      <img src="bot.png" alt="Chatbot" />
+      <div class="bot-intro">
+        “Hello.<br>
+        I am Textro.<br>
+        I am delighted to handle your request today!”
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL (CHAT UI) -->
+    <div class="right">
+      <h2>Ask Something</h2>
+      <input id="promptInput" type="text" placeholder="Type your question..." />
+      <button onclick="sendPrompt()">Ask</button>
+      <div id="response">Awaiting your prompt...</div>
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script>
+    async function sendPrompt() {
+      const prompt = document.getElementById("promptInput").value;
+      const responseDiv = document.getElementById("response");
+
+      if (!prompt.trim()) {
+        responseDiv.innerHTML = "<strong>Please enter a prompt.</strong>";
+        return;
+      }
+
+      responseDiv.innerHTML = "<em>Thinking...</em>";
+
+      const res = await fetch("/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await res.json();
+      responseDiv.innerHTML = "<strong>Response:</strong><br>" + data.response;
+    }
+  </script>
+
+</body>
+</html>
