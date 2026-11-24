@@ -32,7 +32,7 @@ Generative AI · LLM · Chatbot · Google Gemini · LangChain · Flask · REST A
 
 ## Author
 
-**Amar Chaurasiya**, Data Scientist working as an AI Engineer. Open to full-time roles and freelance work.
+**Amar Chaurasiya**, Data Scientist working as an AI Engineer.
 
 - Email: [amarchaurasiya124@gmail.com](mailto:amarchaurasiya124@gmail.com)
 - LinkedIn: [linkedin.com/in/amar-chaurasiya-163788262](https://www.linkedin.com/in/amar-chaurasiya-163788262)
